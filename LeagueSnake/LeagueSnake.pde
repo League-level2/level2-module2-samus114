@@ -25,7 +25,7 @@ Segment seggy = new Segment(3, 3);
 int foodX;
 int foodY;
 int fA;
-
+ArrayList<Segment> body = new ArrayList<Segment>();  
 //*
 // ***** SETUP METHODS *****
 // These methods are called at the start of the game.
@@ -53,9 +53,9 @@ void dropFood() {
 void draw() {
   background(155, 0, 00);
   drawFood();
+    move();
   drawSnake();
-  move();
-      checkBoundaries();
+  checkBoundaries();
 }
 
 void drawFood() {
@@ -66,22 +66,32 @@ void drawFood() {
 
 void drawSnake() {
   //Draw the head of the snake followed by its tail
-  rect(seggy.x, seggy.y, 10, 10);
+rect(seggy.x,seggy.y,10,10);
+drawTail();
 }
 
 
-//*
+//*  
 // ***** TAIL MANAGEMENT METHODS *****
 // These methods make sure the tail is the correct length.
 //*
 
 void drawTail() {
+ 
   //Draw each segment of the tail
+  for(int i = 0;i < body.size(); i++){
+   Segment zero = body.get(i);
+   rect(zero.x,zero.y,10,10);
+  }
 }
 
 void manageTail() {
   //After drawing the tail, add a new segment at the "start" of the tail and remove the one at the "end" 
   //This produces the illusion of the snake tail moving.
+  checkTailCollision();
+  drawTail();  
+  body.add(new Segment(seggy.x, seggy.y));
+  body.remove(0);
 }
 
 void checkTailCollision() {
