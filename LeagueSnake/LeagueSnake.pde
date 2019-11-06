@@ -21,7 +21,7 @@ class Segment {
 // ***** GAME VARIABLES *****
 // All the game variables that will be shared by the game methods are here
 //*
-Segment seggy = new Segment(3, 3);
+Segment seggy = new Segment(10, 10);
 int foodX;
 int foodY;
 int fA;
@@ -56,6 +56,7 @@ void draw() {
     move();
   drawSnake();
   checkBoundaries();
+  eat();
 }
 
 void drawFood() {
@@ -68,6 +69,7 @@ void drawSnake() {
   //Draw the head of the snake followed by its tail
 rect(seggy.x,seggy.y,10,10);
 drawTail();
+manageTail();
 }
 
 
@@ -169,5 +171,6 @@ void eat() {
   if(seggy.x == foodX && seggy.y == foodY){
     fA++;
     dropFood();
+    body.add(new Segment(seggy.x, seggy.y));
   }
 }
